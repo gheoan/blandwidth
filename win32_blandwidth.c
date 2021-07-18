@@ -23,7 +23,7 @@
 
 #include "x64_blandwidth.c"
 #include "blandwidth.c"
-    
+
 typedef struct win32_queues
 {
     HANDLE Result;
@@ -232,6 +232,8 @@ mainCRTStartup(void)
     
     ExitProcess(0);
 }
+
+int _fltused;
 
 #undef function
 #pragma function(memset)

@@ -10,35 +10,35 @@
    Currently, there are few things missing that are important for gaining
    insight into how different x64 architectures supply bandwidth.  Future
    versions of Blandwidth should add:
-   
+
    1) Logical core affinity and scattered test patterns to measure the
       difference between cores as well as the differences when a core
       has two hyperthreads vs. one.
-      
+
    2) Reading out of small buffers but writing into large ones, and
       reading out of large buffers but writing into small ones, since
       these patterns may change the behavior.
-      
+
    3) Randomized read/write offsets, to measure the bandwidth when the
       CPU cannot predict the next offset.
-      
+
    4) Reading and writing the same buffer, instead of reading from
       one buffer and writing to another.
-      
+
    In addition, there are some general quality problems that I expect could
    be improved:
-   
+
    1) The current "starting gate" system for trying to make multiple threads
       start processing at roughly the same time is not particularly good.
       Perhaps RDTSC should be used instead of QueryPerformanceCounter, but
       really it probably doesn't actually help one way or the other, and
       the ideal thing would be an OS strobe of some kind.
-      
+
    2) There hasn't been any real CPUID testing, so it may be erroneously
       enabling AVX when it should not.  I did not use the try/except formulation
       here because doing so requires implementing a stack handler, which
       I didn't think was worth it.
-      
+
    3) It's unclear that timestamps should bother with RDTSC at all, since
       it is not currently used for statistics and it is not as stable with
       respect to core boosting as QueryPerformanceCounter should theoretically
